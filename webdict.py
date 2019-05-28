@@ -61,15 +61,19 @@ def qryRec():
     c = conn.cursor()
     name=request.GET.name
     if name.startswith('&&'):
+        c.execute("select count(*) from newword where "+name[2:]+" ORDER BY lower(name)")
+        cnt=c.fetchone()[0]
         c.execute("select * from newword where "+name[2:]+" ORDER BY lower(name)")
     else:
+        c.execute("SELECT count(*) FROM newword where name like ? ORDER BY lower(name)",('%'+name+'%',))
+        cnt=c.fetchone()[0]
         c.execute("SELECT * FROM newword where name like ? ORDER BY lower(name)",('%'+name+'%',))
     result = c.fetchall()
     c.execute("update newword set qry=ifnull(qry,0)+1, adat=? where lower(name)=? and ifnull(adat,'99991231')<>?",(getDat(), name.lower(),getDat(),))
     conn.commit()
     c.close()
     conn.close()
-    return template('make_table.html', {'rows':result,'ip':request.urlparts.netloc,})
+    return template('make_table.html', {'rows':result,'ip':request.urlparts.netloc,'cnt':cnt} )
 
 @route('/edit/<name>', method='GET')
 @route('/webdict/edit/<name>', method='GET')
