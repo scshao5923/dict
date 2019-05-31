@@ -189,7 +189,6 @@ def get_jpg(filename):
 @route('/webdict/dictTest')
 def dictTest():	
 	tstCond=request.GET.tstCond
-	print("tstCond:"+tstCond)
 	conn = sqlite3.connect('./dict.db')
 	cursor = conn.cursor()
 	if tstCond:
