@@ -1,10 +1,12 @@
 <p>The open {{cnt}} items are as follows:</p>
 <table border="1">
+%cnt=0
 %for row in rows:
   <tr>
+  %cnt=cnt+1
   %itm=0
   %name=''
-  <td><button class='edit'>Edit</button><button class='del'>Delete</button></td>
+  <td>{{cnt}}<button class='edit'>Edit</button><button class='del'>Delete</button></td>
   %for col in row:
 	%itm=itm+1
 	%if itm==2: 

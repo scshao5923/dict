@@ -8,6 +8,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		var msg;
+		var tstCond;
 		var host='http://'+location.host;
 		function setBackground(elem){
 			$(elem).siblings().css("background-color","white");
@@ -188,7 +189,10 @@
 		}
 		function dictTest(){
 			var url=host+"/webdict/dictTest";
-      		$.getJSON(url, function(dt) {
+			if (tstCond == null || tstCond.length==0) { 
+				tstCond=$("#qryFld").val().trim();
+			}
+      		$.getJSON(url, {"tstCond":tstCond},function(dt) {
        			$('#mainContent').html(dt.responseText);
 				$(".pron").click(function(){
    					$(".spk").load(host+'/webdict/pronounce/'+escape(dt.name),function(responseTxt,statusTxt,xhr){
@@ -230,6 +234,10 @@
         		if (key == 13)
             			dictQry();
 		}
+		function dictTestClick(){
+			tstCond="";
+			dictTest();
+		}
 		function subMenuSelect(elem,mnu){
 			setBackground(elem);
 			$("#qry").html("");
@@ -248,7 +256,8 @@
 				$("#qry").html('<p>請輸入欲查詢資料:</p><input id="qryFld" onkeydown="processDictEnter(event)" type="text"  style="width:50%;height:35px;font-size:16px;" size="80" maxlength="100"/><input type="button" value="查詢" onclick="dictQry()"/>');
 			}
 			if (mnu=='b3'){
-				dictTest()
+				tstCond="";
+				$("#qry").html('<p>請輸入欲測驗資料:</p><input id="qryFld" onkeydown="processDictEnter(event)" type="text"  style="width:50%;height:35px;font-size:16px;" size="80" maxlength="100"/><input type="button" value="測驗" onclick="dictTestClick()"/>');
 			}
 		}
 		function menuSelect(elem, mnu){

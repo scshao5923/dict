@@ -187,10 +187,15 @@ def get_jpg(filename):
 
 @route('/dictTest')
 @route('/webdict/dictTest')
-def dictTest():
+def dictTest():	
+	tstCond=request.GET.tstCond
+	print("tstCond:"+tstCond)
 	conn = sqlite3.connect('./dict.db')
 	cursor = conn.cursor()
-	cursor.execute('select id from newword')
+	if tstCond:
+		cursor.execute('select id from newword where '+tstCond)
+	else:
+		cursor.execute('select id from newword')
 	dictKeys = cursor.fetchall()
 	dictKey=random.choice(dictKeys)[0]
 	cursor.execute('select name,ty,ch,pron,sc1,ex1,sc2,ex2,sc3,ex3 from newword where id=?',(dictKey,))
