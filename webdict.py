@@ -167,6 +167,14 @@ def main_html():
     #return template('/var/www/webdict/main.html')
     return template('./main.html')
 
+@route('/mystyle.css')
+def get_css():
+    response.content_type = 'text/css'
+    with open('./mystyle.css', 'rb') as fh:
+        content = fh.read()
+    response.set_header('Content-Length', str(len(content)))
+    return content
+
 @route('/tmp/<filename>')
 def get_mp3(filename):
     response.content_type = 'audio/mp3'
