@@ -305,13 +305,14 @@
 <p><span id="msg"></span></p>
 
 <!-- Go Top 按鈕+動畫 start -->
-<img id="goTop" src="http://localhost:8000/webdict/jpg/up-button.png" title="Back to Top"/>
+<img id="goTop" title="Back to Top"/>
 <script>
 $.extend($.easing, {
 easeOutExpo: function (x, t, b, c, d) {
 return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
 }
 });
+$("#goTop").attr("src", host+"/webdict/jpg/up-button.png"); 
 $("#goTop").click(function(){
 $("html, body").animate({scrollTop: 0}, 1000, "easeOutExpo");
 });
