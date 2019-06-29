@@ -154,8 +154,9 @@ def myTest():
 @route('/stk/imp')
 @route('/webdict/stk/imp')
 def stkImp():
-	stk.imp()
-	return json.dumps({'result': '轉檔成功！！！'})
+	#stk.imp()
+	#return json.dumps({'result': '轉檔成功！！！'})
+	return json.dumps({'result': '請改由iPhone操作！！！'})
 
 @route('/stk/qry/<data>')
 @route('/webdict/stk/qry/<data>')
